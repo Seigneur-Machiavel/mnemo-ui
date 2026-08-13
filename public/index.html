@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mnemo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <span class="logo">mne<span>mo</span></span>
+      <button class="btn-icon" id="reload-slots-btn" title="Refresh">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M1.5 8A6.5 6.5 0 1 0 4 3.5" stroke-linecap="round"/>
+          <polyline points="1.5,1.5 1.5,4 4,4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="sidebar-section-label">Conversations</div>
+    <div id="slot-list"></div>
+
+    <div id="new-slot-form">
+      <input type="text" id="new-slot-input" placeholder="new conversation…" />
+    </div>
+
+    <div class="sidebar-bottom">
+      <button class="nav-btn" id="config-nav-btn">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="8" cy="8" r="2.5"/>
+          <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.42 1.42M11.53 11.53l1.42 1.42M3.05 12.95l1.42-1.42M11.53 4.47l1.42-1.42"/>
+        </svg>
+        Settings
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main id="main">
+
+    <!-- Chat view -->
+    <div id="chat-view">
+      <div id="chat-header">
+        <span class="slot-title" id="header-slot-name">—</span>
+        <span id="project-path-badge" class="empty">+ link folder</span>
+        <span class="header-spacer"></span>
+        <button id="clear-btn">clear</button>
+      </div>
+      <div id="messages">
+        <div class="empty-state" id="empty-label">select or create a conversation</div>
+      </div>
+      <div id="input-area">
+        <textarea id="user-input" rows="1" placeholder="Message…" disabled></textarea>
+        <button id="send-btn" disabled>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="14" x2="8" y2="2"/><polyline points="3,7 8,2 13,7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Config view -->
+    <div id="config-panel"></div>
+
+  </main>
+</div>
+
+<!-- Modal: project path -->
+<div id="modal-overlay">
+  <div id="modal">
+    <h2>Link a folder</h2>
+    <p>The agent will use this as the root for file browsing and edits.</p>
+    <input type="text" id="modal-path-input" placeholder="/absolute/path/to/project" />
+    <div class="modal-actions">
+      <button class="btn-ghost" id="modal-cancel">Cancel</button>
+      <button class="btn-primary" id="modal-confirm">Link folder</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
