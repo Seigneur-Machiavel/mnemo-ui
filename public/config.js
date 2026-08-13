@@ -37,6 +37,13 @@ const ROWS = [
     type:  "number",
     placeholder: "131072",
   },
+  {
+    key:         "systemPrompt",
+    label:       "System prompt",
+    desc:        "Extra instructions appended to the agent's system prompt (lower priority)",
+    type:        "textarea",
+    placeholder: "You always reply in French…",
+  },
 ];
 
 function buildPanel() {
@@ -71,6 +78,11 @@ function buildPanel() {
         o.value = opt; o.textContent = opt;
         input.appendChild(o);
       }
+    } else if (row.type === "textarea") {
+      input = document.createElement("textarea");
+      input.rows = 4;
+      input.placeholder = row.placeholder ?? "";
+      input.style.cssText = "resize:vertical;font-family:var(--mono);font-size:12px;width:260px;flex-shrink:0;background:var(--bg-side);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:7px 10px;outline:none;";
     } else {
       input = document.createElement("input");
       input.type = row.type;

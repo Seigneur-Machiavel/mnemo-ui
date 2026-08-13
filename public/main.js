@@ -3,7 +3,7 @@ import {
   setProjectPath, clearHistory,
   renderSlots, renderProjectBadge,
 } from "./slots.js";
-import { sendMessage, clearMessages, showEmptyState } from "./chat.js";
+import { sendMessage, clearMessages, showEmptyState, restoreHistory } from "./chat.js";
 import { initConfigPanel, showConfig, hideConfig } from "./config.js";
 
 // ── State ──
@@ -29,8 +29,8 @@ async function selectSlot(slot) {
   document.getElementById("header-slot-name").textContent = slot;
   document.getElementById("user-input").disabled  = false;
   document.getElementById("send-btn").disabled    = false;
-  clearMessages();
   if (configVisible) { configVisible = false; hideConfig(); }
+  await restoreHistory(slot).catch(() => clearMessages());
   await loadAndRenderSlots(); // refresh highlights
   try {
     const meta = await fetchSlotMeta(slot);

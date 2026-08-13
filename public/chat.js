@@ -1,4 +1,4 @@
-import { streamChat } from "./api.js";
+import { streamChat, apiFetch } from "./api.js";
 
 const ACTION_PREFIXES = ["ADD_REF", "REMOVE_REF", "EDIT", "RECALL"];
 
@@ -90,6 +90,21 @@ function collapseThoughtBlock(block) {
   if (!block) return;
   block.querySelector(".thought-summary").textContent = "done";
   block.classList.add("collapsed");
+}
+
+// ── Restore history from server ──
+
+export async function restoreHistory(slot) {
+  const { history } = await apiFetch(`/chat/${slot}/history`);
+  if (!history?.length) return;
+  clearMessages();
+  for (const msg of history) {
+    if (msg.role === "user") { appendUserMessage(msg.content); continue; }
+    if (msg.role !== "assistant") continue;
+    const { proseEl } = createAssistantMessage();
+    proseEl.classList.remove("cursor");
+    proseEl.textContent = msg.content;
+  }
 }
 
 // ── Main send function ──
